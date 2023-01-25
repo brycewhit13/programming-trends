@@ -17,14 +17,17 @@ pub fn get_programming_lang_comparison(){
     let results = RegionInterest::new(client).get();
 
     // print and format the results
-    println!("{}", format_result(json!(results)));
+    format_result(json!(results));
 }
 
-fn format_result(result: Value) -> String {
-    // Access the state and value data
-    let states = &result["default"]["geoMapData"][0]["geoName"];
-    let num_searches = &result["default"]["geoMapData"][0]["value"][0];
-    
-    // return formatted results
-    format!("{}: {}", states.to_string(), num_searches.to_string())
+fn format_result(result: Value) {
+    // Loop through each state
+    for st in 0..51{ // 51 because DC is included
+        // Access the state and value data
+        let state = &result["default"]["geoMapData"][st]["geoName"];
+        let num_searches = &result["default"]["geoMapData"][st]["value"][0];
+        
+        // return formatted results
+        println!("{}: {}", state.to_string(), num_searches.to_string());
+    }
 }
