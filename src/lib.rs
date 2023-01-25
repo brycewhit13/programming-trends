@@ -16,8 +16,7 @@ pub fn get_programming_lang_comparison(){
 
     let results = RegionInterest::new(client).get();
 
-    // print the results
-    //println!("{}", json!(results));
+    // print and format the results
     println!("{}", format_result(json!(results)));
 }
 
