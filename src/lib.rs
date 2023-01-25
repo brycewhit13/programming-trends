@@ -1,10 +1,10 @@
 /* Logic for interacting with the rtrend API */
 
 // Import crates
-use rtrend::{Keywords, Country, Client, RegionInterest};
-use serde_json::{Value, json};
+use rtrend::{Client, Country, Keywords, RegionInterest};
+use serde_json::{json, Value};
 
-pub fn get_programming_lang_comparison(){
+pub fn get_programming_lang_comparison() {
     // vector of programming languages
     let program_langs = vec!["Python"];
 
@@ -21,13 +21,13 @@ pub fn get_programming_lang_comparison(){
 }
 
 fn format_result(result: Value) {
-    // Loop through each state
-    for st in 0..51{ // 51 because DC is included
+    // Loop through each state - 51 because DC is included
+    for st in 0..51 {
         // Access the state and value data
         let state = &result["default"]["geoMapData"][st]["geoName"];
         let num_searches = &result["default"]["geoMapData"][st]["value"][0];
-        
+
         // return formatted results
-        println!("{}: {}", state.to_string(), num_searches.to_string());
+        println!("{}: {}", state, num_searches);
     }
 }
