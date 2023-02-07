@@ -44,6 +44,19 @@ pub fn print_top_5(result: Value) {
     println!("");
 }
 
+pub fn print_complete_result(result: Value){
+    // Loop through each state - 51 because DC is included
+    for st in 0..51 {
+        // Access the state and value data
+        let state = &result["default"]["geoMapData"][st]["geoName"];
+        let num_searches = &result["default"]["geoMapData"][st]["value"][0];
+
+        // return formatted results
+        println!("{}: {}", state, num_searches);
+    }
+
+}
+
 pub fn plot_result(result: Value, output_filename: &str) {
     // Get vector of states and values
     let mut states: Vec<Value> = Vec::new();
