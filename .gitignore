@@ -12,3 +12,6 @@ Cargo.lock
 # Ignore any output file I use for testing
 output.txt
 output.html
+
+# Ignore any results
+/results/

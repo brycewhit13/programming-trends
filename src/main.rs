@@ -1,9 +1,7 @@
 // import crates and functions from lib.rs
 //use clap::Parser;
-use serde_json::{json, Value};
-use programming_trends::get_rust_popularity;
-use programming_trends::print_result;
-use programming_trends::plot_result;
+//use programming_trends::print_result;
+//use programming_trends::plot_result;
 
 /*
 // Add extended help
@@ -18,15 +16,8 @@ struct Cli {
    language: &str,
 } */
 
+// TODO: Option to run in python, rust, java mode and get full results
+
 pub fn main() {
-    //let args = Cli::parse();
-    // Get the comparison
-    let results: Value = get_rust_popularity();
-
-    // Print the results
-    print_result(json!(results));
-
-    // PLot the results
-    plot_result(json!(results));
-
+    programming_trends::get_all_language_popularity();
 }
