@@ -4,7 +4,6 @@
 use rtrend::{Client, Country, Keywords, RegionInterest};
 use serde_json::{Value};
 use plotly::{Plot, Bar};
-use plotly::common::Title;
 
 pub fn get_rust_popularity() -> Value {
     // vector of programming languages
