@@ -17,9 +17,9 @@ There are two different ways to run this program. The first is to compare the po
 ### Language Comparison
 This is the default option and compares five different languages: `Rust`, `Python`, `C`, `Java`, and `Javascript`. For each language, the top-5 states where the language is most popular is printed to the terminal. A graph visualization is also output to the results folder, which will be created if it doesn't exist already. An example of a terminal output and graph are shown below:
 
-// Insert Terminal Image
+![All Languages Terminal](imgs/multi_terminal.jpg)
 
-// Insert Graph Image
+![Graph Results](imgs/graph_results.jpg)
 
 To run the program, do the following:
 1) cd into `programming-trends`
@@ -28,7 +28,7 @@ To run the program, do the following:
 ### Single Language Output
 The single language option allows you to dive deeper into a single programming language. Instead of printing the top-5 states where the programming language is popular, it will print all the states to the terminal. It will also update the graph in the `results` folder. An example of the different terminal output is shown below:
 
-// Insert Image of the terminal in single mode
+![Single Languages Terminal](imgs/single_terminal.jpg)
 
 To run the program in single language analysis mode, do the following:
 1) cd into `programming-trends`
