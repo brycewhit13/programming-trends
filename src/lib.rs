@@ -1,13 +1,13 @@
 /* Logic for interacting with the rtrend API */
 
-// Import crates 
-use rtrend::{Client, Country, Keywords, RegionInterest};
-use serde_json::{Value};
-use plotly::{Plot, Bar};
+// Import crates
 use plotly::common::Title;
 use plotly::Layout;
+use plotly::{Bar, Plot};
+use rtrend::{Client, Country, Keywords, RegionInterest};
+use serde_json::Value;
 
-pub fn get_all_language_popularity(){
+pub fn get_all_language_popularity() {
     // Get the results for each language
     let rust_results = _get_rust_popularity();
     let python_results = _get_python_popularity();
@@ -16,7 +16,13 @@ pub fn get_all_language_popularity(){
     let js_results = _get_javascript_popularity();
 
     // Print the top-5 states for each language
-    for language in vec![("Rust", rust_results), ("Python", python_results), ("Java", java_results), ("C", c_results), ("Javascript", js_results)]{
+    for language in vec![
+        ("Rust", rust_results),
+        ("Python", python_results),
+        ("Java", java_results),
+        ("C", c_results),
+        ("Javascript", js_results),
+    ] {
         let lang = language.0;
         let res = language.1;
         let header = format!("Top-5 states where {lang} is most popular:");
@@ -28,7 +34,6 @@ pub fn get_all_language_popularity(){
         let output_name = format!("{lang}_results.html");
         plot_result(res, lang, &output_name);
     }
-
 }
 
 pub fn print_top_5(result: Value) {
@@ -43,10 +48,10 @@ pub fn print_top_5(result: Value) {
     }
 
     // Print a newline at the end
-    println!("");
+    println!();
 }
 
-pub fn print_complete_result(result: Value){
+pub fn print_complete_result(result: Value) {
     // Loop through each state - 51 because DC is included
     for st in 0..51 {
         // Access the state and value data
@@ -56,7 +61,6 @@ pub fn print_complete_result(result: Value){
         // return formatted results
         println!("{}: {}", state, num_searches);
     }
-
 }
 
 pub fn plot_result(result: Value, language: &str, output_filename: &str) {
@@ -76,13 +80,12 @@ pub fn plot_result(result: Value, language: &str, output_filename: &str) {
 
     // add a title
     let title = format!("{language} popularity across the US");
-    let layout = Layout::new().title(Title::new(&title)).into();
+    let layout = Layout::new().title(Title::new(&title));
     plot.set_layout(layout);
 
     // Save the plot into a results
-    match std::fs::create_dir_all("results"){
-        Err(e) => println!("{}", e),
-        _ => ()
+    if let Err(e) = std::fs::create_dir_all("results") {
+        println!("{}", e)
     };
     plot.write_html(format!("results/{output_filename}"));
 }
@@ -101,10 +104,8 @@ pub fn _get_rust_popularity() -> Value {
 
     let client = Client::new(keywords, country).build();
 
-    let results = RegionInterest::new(client).get();
-    
     // Return the results
-    results
+    RegionInterest::new(client).get()
 }
 
 pub fn _get_python_popularity() -> Value {
@@ -117,10 +118,8 @@ pub fn _get_python_popularity() -> Value {
 
     let client = Client::new(keywords, country).build();
 
-    let results = RegionInterest::new(client).get();
-    
     // Return the results
-    results
+    RegionInterest::new(client).get()
 }
 
 pub fn _get_java_popularity() -> Value {
@@ -133,10 +132,8 @@ pub fn _get_java_popularity() -> Value {
 
     let client = Client::new(keywords, country).build();
 
-    let results = RegionInterest::new(client).get();
-    
     // Return the results
-    results
+    RegionInterest::new(client).get()
 }
 
 pub fn _get_c_popularity() -> Value {
@@ -149,10 +146,8 @@ pub fn _get_c_popularity() -> Value {
 
     let client = Client::new(keywords, country).build();
 
-    let results = RegionInterest::new(client).get();
-    
     // Return the results
-    results
+    RegionInterest::new(client).get()
 }
 
 pub fn _get_javascript_popularity() -> Value {
@@ -165,8 +160,6 @@ pub fn _get_javascript_popularity() -> Value {
 
     let client = Client::new(keywords, country).build();
 
-    let results = RegionInterest::new(client).get();
-    
     // Return the results
-    results
+    RegionInterest::new(client).get()
 }
