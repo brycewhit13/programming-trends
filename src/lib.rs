@@ -4,6 +4,8 @@
 use rtrend::{Client, Country, Keywords, RegionInterest};
 use serde_json::{Value};
 use plotly::{Plot, Bar};
+use plotly::common::Title;
+use plotly::Layout;
 
 pub fn get_all_language_popularity(){
     // Get the results for each language
@@ -14,7 +16,7 @@ pub fn get_all_language_popularity(){
     let js_results = _get_javascript_popularity();
 
     // Print the top-5 states for each language
-    for language in vec![("RUST", rust_results), ("PYTHON", python_results), ("JAVA", java_results), ("C", c_results), ("JAVASCRIPT", js_results)]{
+    for language in vec![("Rust", rust_results), ("Python", python_results), ("Java", java_results), ("C", c_results), ("Javascript", js_results)]{
         let lang = language.0;
         let res = language.1;
         let header = format!("Top-5 states where {lang} is most popular:");
@@ -24,7 +26,7 @@ pub fn get_all_language_popularity(){
 
         // Store the graph results for each in a folder
         let output_name = format!("{lang}_results.html");
-        plot_result(res, &output_name);
+        plot_result(res, lang, &output_name);
     }
 
 }
@@ -57,7 +59,7 @@ pub fn print_complete_result(result: Value){
 
 }
 
-pub fn plot_result(result: Value, output_filename: &str) {
+pub fn plot_result(result: Value, language: &str, output_filename: &str) {
     // Get vector of states and values
     let mut states: Vec<Value> = Vec::new();
     let mut values: Vec<Value> = Vec::new();
@@ -71,6 +73,11 @@ pub fn plot_result(result: Value, output_filename: &str) {
     let mut plot = Plot::new();
     let trace = Bar::new(states, values);
     plot.add_trace(trace);
+
+    // add a title
+    let title = format!("{language} popularity across the US");
+    let layout = Layout::new().title(Title::new(&title)).into();
+    plot.set_layout(layout);
 
     // Save the plot into a results
     match std::fs::create_dir_all("results"){
